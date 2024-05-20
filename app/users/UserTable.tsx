@@ -10,7 +10,7 @@ interface Props {
 	sortBy: string;
 }
 export default async function UserTable({ sortBy }: Props) {
-	const res = await fetch("https://jsonplaceholder.typicode.com/users", {
+	const res = await fetch("https://jsonplaceholder.typicode.com/xusers", {
 		next: { revalidate: 10 }, // every 10 sec fetch new data
 	});
 	const users: User[] = await res.json();
