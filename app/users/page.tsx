@@ -3,6 +3,7 @@ import React from "react";
 interface User {
 	id: number;
 	name: string;
+	email: string;
 }
 export default async function UserPage() {
 	const res = await fetch("https://jsonplaceholder.typicode.com/users", {
@@ -12,10 +13,22 @@ export default async function UserPage() {
 
 	return (
 		<div>
-			<p>{new Date().toLocaleTimeString()}</p>
-			{users.map((user) => (
-				<div key={user.id}>{user.name}</div>
-			))}
+			<table className="table table-md	 ">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					{users.map((user) => (
+						<tr key={user.id}>
+							<td>{user.name}</td>
+							<td>{user.email}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
 		</div>
 	);
 }
