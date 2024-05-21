@@ -17,3 +17,9 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
 		return NextResponse.json({ error: "Invalid User ID" }, { status: 404 });
 	return NextResponse.json({ id: 1, name: body.name }, { status: 200 });
 }
+
+export function DELETE(request: NextRequest, { params: { id } }: Props) {
+	if (id > 12)
+		return NextResponse.json({ error: "User not found" }, { status: 404 });
+	return NextResponse.json({ message: "User deleted successfully" });
+}
