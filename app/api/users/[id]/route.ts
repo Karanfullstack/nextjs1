@@ -38,8 +38,16 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
 	return NextResponse.json(updateUser, { status: 200 });
 }
 
-export function DELETE(request: NextRequest, { params: { id } }: Props) {
-	if (id > 12)
-		return NextResponse.json({ error: "User not found" }, { status: 404 });
-	else return NextResponse.json({ message: "User deleted successfully" });
+export async function DELETE(request: NextRequest, { params: { id } }: Props) {
+	const user = await prisma.user.findFirst({
+		where: { id: Number(id) },
+	});
+
+	if (!user)
+		return NextResponse.json({ error: "Invalid user id" }, { status: 404 });
+
+	await prisma.user.delete({
+		where: { id: Number(id) },
+	});
+	return NextResponse.json({ message: "User deleted successfully" });
 }
