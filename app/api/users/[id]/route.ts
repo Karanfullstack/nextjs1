@@ -1,13 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "../schema";
+import prisma from "@/prisma/client";
 // TODO request:NextRequest - IF REMOVE THIS DATA IS CACHED OTHERWISE NO
+
+
 interface Props {
 	params: { id: number };
 }
-export function GET(request: NextRequest, { params: { id } }: Props) {
-	if (id > 11)
-		return NextResponse.json({ error: "Not found" }, { status: 404 });
-	return NextResponse.json({ id: id, name: "John Doe" });
+export async function GET(request: NextRequest, { params: { id } }: Props) {
+	const user = await prisma.user.findUnique({
+		where: { id: Number(id) },
+	});
+
+	if (!user) return NextResponse.json({ error: "Not found" }, { status: 404 });
+	return NextResponse.json(user);
 }
 
 export async function PUT(request: NextRequest, { params: { id } }: Props) {

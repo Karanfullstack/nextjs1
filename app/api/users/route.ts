@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
-
-// TODO request:NextRequest - IF REMOVE THIS DATA IS CACHED OTHERWISE NO
-export function GET(request: NextRequest) {
-	return NextResponse.json([
-		{ id: 1, name: "John Doe" },
-		{ id: 2, name: "Karan Doe" },
-	]);
+import prisma from "@/prisma/client";
+// ! request:NextRequest - IF REMOVE THIS DATA IS CACHED OTHERWISE NO
+export async function GET(request: NextRequest) {
+	const users = await prisma.user.findMany();
+	return NextResponse.json(users);
 }
 
 export async function POST(request: NextRequest) {
