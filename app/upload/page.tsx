@@ -12,6 +12,11 @@ export default function UploadPage() {
 		<>
 			{cldId && <CldImage src={cldId} alt="gol" width={270} height={150} />}
 			<CldUploadWidget
+				options={{
+					sources: ["local"],
+					multiple: false,
+					maxFiles: 1,
+				}}
 				uploadPreset="xenyksnn"
 				onSuccess={(result, widget) => {
 					const results = result.info as CloudnaryProps;
