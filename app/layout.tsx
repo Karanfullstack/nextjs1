@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "./components/Navbar";
 import "./globals.css";
+import AuthProvider from "./auth/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,10 @@ export default function RootLayout({
 	return (
 		<html lang="en" data-theme="cupcake">
 			<body className={inter.className} suppressHydrationWarning={true}>
-				<Navbar />
-				<main>{children}</main>
+				<AuthProvider>
+					<Navbar />
+					<main>{children}</main>
+				</AuthProvider>
 			</body>
 		</html>
 	);
