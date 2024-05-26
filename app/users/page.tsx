@@ -6,7 +6,7 @@ interface Props {
 export default async function UserPage({ searchParams: { sortOrder } }: Props) {
 	return (
 		<>
-			<UserTable sortBy={sortOrder} />;
+			<UserTable sortBy={sortOrder} />
 		</>
 	);
 }
