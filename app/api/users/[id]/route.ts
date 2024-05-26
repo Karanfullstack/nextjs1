@@ -4,11 +4,11 @@ import prisma from "@/prisma/client";
 // TODO request:NextRequest - IF REMOVE THIS DATA IS CACHED OTHERWISE NO
 
 interface Props {
-	params: { id: number };
+	params: { id: string };
 }
 export async function GET(request: NextRequest, { params: { id } }: Props) {
 	const user = await prisma.user.findUnique({
-		where: { id: Number(id) },
+		where: { id },
 	});
 
 	if (!user) return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -26,13 +26,13 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
 		);
 
 	const user = await prisma.user.findUnique({
-		where: { id: Number(id) },
+		where: { id },
 	});
 
 	if (!user)
 		return NextResponse.json({ error: "Invalid User ID" }, { status: 404 });
 	const updateUser = await prisma.user.update({
-		where: { id: Number(id) },
+		where: { id },
 		data: { name: body.name, email: body.email },
 	});
 	return NextResponse.json(updateUser, { status: 200 });
@@ -40,14 +40,14 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
 
 export async function DELETE(request: NextRequest, { params: { id } }: Props) {
 	const user = await prisma.user.findFirst({
-		where: { id: Number(id) },
+		where: { id },
 	});
 
 	if (!user)
 		return NextResponse.json({ error: "Invalid user id" }, { status: 404 });
 
 	await prisma.user.delete({
-		where: { id: Number(id) },
+		where: { id },
 	});
 	return NextResponse.json({ message: "User deleted successfully" });
 }
