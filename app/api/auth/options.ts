@@ -4,6 +4,8 @@ import Google from "next-auth/providers/google";
 import prisma from "../../../prisma/client";
 import CredentialProvider from "next-auth/providers/credentials";
 import bcyrpt from "bcrypt"
+
+
 const authOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
